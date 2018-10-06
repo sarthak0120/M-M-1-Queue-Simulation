@@ -14,13 +14,17 @@ A single server serves customers one at a time from the front of the queue, acco
 
 Suppose the system is in state n. Then, the balance equation reads
 
-(λ+μ)Pn=λPn−1+μPn+1.
+(λ+μ)Pn = λPn−1 + μPn+1
 
 Essentially,
-(λ+μ)Pn:λPn−1:μPn+1:rate of an arrival or departure to Pnrate of an arrival to Pn−1rate of a departure from Pn+1
+(λ+μ)Pn:  rate of an arrival or departure to Pn
+λPn−1:    rate of an arrival to Pn−1
+μPn+1:    rate of a departure from Pn+1
 
 The boundary condition (near an empty queue) is that
 λP0=μP1.
 
 Thus,
-P1P2Pn=λμP0=λμP1+1μ(μP1−λP0)=λμP1=(λμ)2P0=⋮=(λμ)nP0
+P1 = λ/μ(P0)
+P2 = λ/μ(P1) + 1/μ(μP1−λP0 )= λ/μ(P1) = (λ/μ)^2(P0)
+Pn =(λ/μ)^n(P0)
