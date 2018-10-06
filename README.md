@@ -26,5 +26,7 @@ The boundary condition (near an empty queue) is that
 
 Thus,
 P1 = λ/μ(P0)
+
 P2 = λ/μ(P1) + 1/μ(μP1−λP0 )= λ/μ(P1) = (λ/μ)^2(P0)
+
 Pn =(λ/μ)^n(P0)
