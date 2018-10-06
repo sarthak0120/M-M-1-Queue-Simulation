@@ -87,5 +87,10 @@ print("AT: ", AT)
 print("==============================================")
 print("ST :", ST_copy)
 print("==============================================")
-print("Average Wait time: ", sum_wait/num_processes_served)        
+print("Average Wait time (in queue): ", sum_wait/num_processes_served)        
 print("Average Delay time: ", sum_delay/num_processes_served)    
+
+#Formula Comparison
+print("==============================================")
+print('According to the formulas : ')
+print('Average Wait Time system : ', ((sum_wait/num_processes)+(1/ST_rate)))
