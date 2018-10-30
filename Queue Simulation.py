@@ -16,7 +16,7 @@ server_busy = False
 total_time = int(input("Enter Total Simulation Time(Hours): "))
 IAT_rate = int(input("Enter Job Arrival Rate(per Hour): "))
 ST_rate = int(input("Enter Job Service Rate(per Hour): "))
-
+rho = IAT_rate/ST_rate
 
 num_processes = int(np.random.poisson(IAT_rate)* total_time)
 num_processes_served = 0
@@ -86,5 +86,6 @@ print("Average Delay Time: ", sum_delay/(num_processes_served*60*60))
 print("==============================================")
 #Formula Comparison
 print('According to the formulas : ')
-print('Average Delay Time : ', 1/(ST_rate-IAT_rate))
+print("Average Wait Time: ", rho/((1-rho)*ST_rate))        
+print('Average Delay Time : ', 1/((1-rho)*ST_rate))
 print("==============================================")
