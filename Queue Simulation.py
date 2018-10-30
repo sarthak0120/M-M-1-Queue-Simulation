@@ -4,7 +4,7 @@ import copy
 
 # Initialize Parameters
 qu = queue.Queue()
-curr_process = 0
+curr_process = None
 IAT = []
 ST = []
 AT = []
@@ -13,27 +13,27 @@ delay_time = []
 server_busy = False
 
 # Input Parameters
-total_time = int(input("Enter Total Time: "))
-IAT_rate = int(input("Enter IAT Rate: "))
-ST_rate = int(input("Enter ST Rate: "))
+total_time = int(input("Enter Total Simulation Time(Hours): "))
+IAT_rate = int(input("Enter Job Arrival Rate(per Hour): "))
+ST_rate = int(input("Enter Job Service Rate(per Hour): "))
 
 
-num_processes = np.random.poisson(500)
+num_processes = int(np.random.poisson(IAT_rate)* total_time)
 num_processes_served = 0
 
 # Populate Inter-Arrival-Times (IAT)
 for i in range(num_processes):
-    temp = int(np.random.exponential(IAT_rate))
+    temp = np.random.exponential(1/IAT_rate)*60*60
     if i==0:
         IAT.append(0)
     else:
-        IAT.append(temp)
+        IAT.append(int(temp - temp%1))
 
 # Populate Service-Times (ST) (where ST[i]!=0)
 while not len(ST) == num_processes:
-    temp = int(np.random.exponential(ST_rate))
-    if not temp<1:
-        ST.append(temp)
+    temp = np.random.exponential(1/ST_rate)*60*60
+    if not int(temp- temp%1)<1:
+        ST.append(int(temp - temp%1))
 
 # Save a copy of ST
 ST_copy = copy.deepcopy(ST)
@@ -49,7 +49,7 @@ for i in range(num_processes):
 
 # Simulation of M/M/1 Queue (i represents current time)
 
-for i in range(total_time):    
+for i in range(total_time*60*60):    
     if server_busy:
         for item in list(qu.queue):
             wait_time[item] = wait_time[item] + 1
@@ -71,7 +71,7 @@ OUTPUT MEASURES:
 AVG WAIT, AVD DELAY TIME (Done) 
 AVG NO OF PROCESSES WAITING (Not implemented yet)
 """ 
-        
+
 sum_wait = 0
 sum_delay = 0
 
@@ -79,18 +79,12 @@ for i in range(num_processes):
     sum_wait = sum_wait + wait_time[i]
     sum_delay = sum_delay + wait_time[i] + ST_copy[i]
 
+print("==============================================")
 print("Number of Processes Served: ", num_processes_served)
+print("Average Wait Time: ", sum_wait/(num_processes_served*60*60))        
+print("Average Delay Time: ", sum_delay/(num_processes_served*60*60))   
 print("==============================================")
-print("Wait Time: ", wait_time)
-print("==============================================")
-print("AT: ", AT)
-print("==============================================")
-print("ST :", ST_copy)
-print("==============================================")
-print("Average Wait time (in queue): ", sum_wait/num_processes_served)        
-print("Average Delay time: ", sum_delay/num_processes_served)    
-
 #Formula Comparison
-print("==============================================")
 print('According to the formulas : ')
-print('Average Wait Time system : ', ((sum_wait/num_processes)+(1/ST_rate)))
+print('Average Delay Time : ', 1/(ST_rate-IAT_rate))
+print("==============================================")
