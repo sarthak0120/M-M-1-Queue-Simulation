@@ -9,13 +9,12 @@ IAT = []
 ST = []
 AT = []
 wait_time = []
-delay_time = []
 server_busy = False
 
 # Input Parameters
-total_time = int(input("Enter Total Simulation Time(Hours): "))
-IAT_rate = int(input("Enter Job Arrival Rate(per Hour): "))
-ST_rate = int(input("Enter Job Service Rate(per Hour): "))
+total_time = int(input("Enter time for simulation (Hours): "))
+IAT_rate = int(input("Enter Job Arrival Rate (/Hour): "))
+ST_rate = int(input("Enter Job Service Rate (/Hour): "))
 rho = IAT_rate/ST_rate
 
 num_processes = int(np.random.poisson(IAT_rate)* total_time)
